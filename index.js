@@ -2,26 +2,26 @@ import { Telegraf } from 'telegraf';
 
 const bot = new Telegraf(process.env.BOT_TOKEN);
 
-bot.on("sticker", (ctx, next) => {
-	ctx.reply(ctx.message.sticker.file_id);
+bot.on("sticker", async(ctx, next) => {
+	await ctx.reply(ctx.message.sticker.file_id);
 	// ctx.replyWithSticker(ctx.message.sticker.file_id);
 	next();
 });
 
-bot.on("animation", (ctx) => {
-	ctx.reply(ctx.message.animation.file_id);
+bot.on("animation", async(ctx) => {
+	await ctx.reply(ctx.message.animation.file_id);
 	// ctx.replyWithAnimation(ctx.message.animation.file_id);
 	next();
 });
 
-bot.on("message", (ctx, next) => {
+bot.on("message", async(ctx, next) => {
 	if (ctx.message.forward_from) {
-		ctx.reply("Forwarded from: " + ctx.message.forward_from.username);
-		ctx.reply("ID: " + ctx.message.forward_from.id);
+		await ctx.reply("Forwarded from: " + ctx.message.forward_from.username);
+		await ctx.reply("ID: " + ctx.message.forward_from.id);
 	}
 	else if (ctx.message.forward_sender_name) {
-		ctx.reply("Forwarded from: " + ctx.message.forward_sender_name);
-		ctx.reply("ID: " + "Access denied!");
+		await ctx.reply("Forwarded from: " + ctx.message.forward_sender_name);
+		await ctx.reply("ID: " + "Access denied!");
 	}
 	else
 		next();
