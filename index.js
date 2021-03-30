@@ -8,7 +8,7 @@ bot.on("sticker", async(ctx, next) => {
 	next();
 });
 
-bot.on("animation", async(ctx) => {
+bot.on("animation", async(ctx, next) => {
 	await ctx.reply(ctx.message.animation.file_id);
 	// ctx.replyWithAnimation(ctx.message.animation.file_id);
 	next();
