@@ -14,6 +14,17 @@ bot.on("animation", async (ctx, next) => {
 	next();
 });
 
+bot.on("photo", async (ctx, next) => {
+	await ctx.reply("PIC : " + ctx.message.photo[0].file_id);
+	next();
+});
+
+bot.on("document", async (ctx, next) => {
+	await ctx.reply("PIC : " + ctx.message.document.file_id);
+	next();
+});
+
+
 bot.start((ctx, next) => {
 	if (!(ctx.message.forward_sender_name || ctx.message.forward_from))
 		ctx.reply("Forward some message to me\nor send me some sticker or GIF");
@@ -26,17 +37,15 @@ bot.on("message", async (ctx) => {
 		await ctx.reply("Forwarded from: " + ctx.message.forward_from.username);
 		await ctx.reply("ID: " + ctx.message.forward_from.id);
 	}
-	else if(ctx.message.forward_from_chat)
-	{
+	else if (ctx.message.forward_from_chat) {
 		await ctx.reply("Forwarded from channel: " + ctx.message.forward_from_chat.title);
-		await ctx.reply("ID: " +  ctx.message.forward_from_chat.id);
+		await ctx.reply("ID: " + ctx.message.forward_from_chat.id);
 	}
 	else if (ctx.message.forward_sender_name) {
 		await ctx.reply("Forwarded from: " + ctx.message.forward_sender_name);
 		await ctx.reply("ID: " + "Access denied!");
 	}
-	else if(!(ctx.message.sticker || ctx.message.animation))
-	{
+	else if (!(ctx.message.sticker || ctx.message.animation)) {
 		ctx.reply("This is not a forwarded message!");
 	}
 });
